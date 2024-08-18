@@ -1,0 +1,15 @@
+{{- if .Values.persistentVolume.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "template.fullname" . }}
+  labels:
+    {{- include "template.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.persistentVolume.storageClassName | default ""}}
+  capacity:
+    storage: {{ .Values.persistentVolume.storage}}
+  accessModes:
+    {{- .Values.persistentVolume.accessModes | nindent 4 }}
+  {{- .Values.persistentVolume.type | nindent 2 }}
+{{- end }}

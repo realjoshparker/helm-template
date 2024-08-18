@@ -1,0 +1,24 @@
+{{- if .Values.service }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "template.fullname" . }}
+  labels:
+    {{- include "template.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    {{- range .Values.service.ports }}
+    - port: {{ .port }}
+      {{- if .targetPort }}
+      targetPort: {{ .targetPort }}
+      {{- end }}
+      protocol: {{ .protocol | default "TCP" }}
+      {{- if .name }}
+      name: {{ .name }}
+      {{- end }}
+    {{- end }}
+  selector:
+    {{- include "template.selectorLabels" . | nindent 4 }}
+{{- end }}

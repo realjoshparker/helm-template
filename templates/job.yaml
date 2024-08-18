@@ -1,0 +1,20 @@
+{{- if eq .Values.kind "Job" }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "template.fullname" . }}
+  labels:
+    {{- include "template.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{- if .Values.command }}
+          command:
+            {{- toYaml .Values.command | nindent 12 }}
+          {{- end }}
+      restartPolicy: {{ .Values.restartPolicy }}
+  backoffLimit: {{ .Values.backoffLimit }}
+{{- end }}
