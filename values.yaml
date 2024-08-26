@@ -7,6 +7,10 @@ kind: Deployment
 # Note this only has an effect on Deployments, StatefulSets, Jobs, and CronJobs
 replicaCount: 1
 restartPolicy: Always #Never
+# Used for Jobs and CronJobs, not used with other kinds
+backoffLimit: 2
+# Used with CronJobs only, specifies the frequency of the cronjobs
+schedule: "* * * * *"
 
 image:
   repository: busybox
@@ -104,47 +108,47 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: config
-    nfs:
-      server: 192.168.10.2
-      path: /mnt/user/kubernetes-data
+volumes: []
+#  - name: config
+#    nfs:
+#      server: 192.168.1.1
+#      path: /my/nfs/share
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: 
-  - name: config
-    mountPath: /config
-    subPath: default/example
+volumeMounts: []
+#  - name: config
+#    mountPath: /config
+#    subPath: default/example
 
 # Used for StatefulSets, allows you to set a PVC template
-volumeClaimTemplates: 
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: auth-db
-      labels:
-        app: auth-db
-    spec:
-      storageClassName: ""
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 2Gi
-      volumeMode: Filesystem
+#volumeClaimTemplates: 
+#  - apiVersion: v1
+#    kind: PersistentVolumeClaim
+#    metadata:
+#      name: my-pvc
+#      labels:
+#        app: my-pvc
+#    spec:
+#      storageClassName: ""
+#      accessModes:
+#      - ReadWriteOnce
+#      resources:
+#        requests:
+#          storage: 2Gi
+#      volumeMode: Filesystem
 
 # Creates persistent volume as well as the PVC
 persistentVolume:
   enabled: false
-  storageClassName: ""
-  accessModes:
-  - ReadWriteMany
-  capacity: 2Gi
-  mode: Filesystem
-  type:
-    nfs:
-      server: 192.168.1.10
-      path: /data 
+#  storageClassName: ""
+#  accessModes:
+#  - ReadWriteMany
+#  capacity: 2Gi
+#  mode: Filesystem
+#  type:
+#    nfs:
+#      server: 192.168.1.1
+#      path: /my/nfs/share
 
 nodeSelector: {}
 
@@ -169,7 +173,7 @@ configmap:
 # Note all secrets should be a string and should not be converted to base64
 # Note any files containing env as the file extension will automatically be parsed to remove any commented (#) and empty lines to prevent YAML parsing errors
 secret:
-  enabled: true
+  enabled: false
   configs:
   - name: test-env
     data:
