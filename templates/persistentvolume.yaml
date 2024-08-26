@@ -8,8 +8,8 @@ metadata:
 spec:
   storageClassName: {{ .Values.persistentVolume.storageClassName | default ""}}
   capacity:
-    storage: {{ .Values.persistentVolume.storage}}
+    storage: {{ .Values.persistentVolume.capacity }}
   accessModes:
-    {{- .Values.persistentVolume.accessModes | nindent 4 }}
-  {{- .Values.persistentVolume.type | nindent 2 }}
+    {{- toYaml .Values.persistentVolume.accessModes | nindent 4 }}
+  {{- toYaml .Values.persistentVolume.type | nindent 2 }}
 {{- end }}

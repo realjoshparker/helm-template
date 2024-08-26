@@ -1,4 +1,4 @@
-{{- if and .Values.persistentVolume.enabled (not (eq .Values.kind "Deployment")) }}
+{{- if and .Values.persistentVolume.enabled (not (eq .Values.kind "StatefulSet")) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -8,7 +8,7 @@ metadata:
 spec:
   storageClassName: {{ .Values.persistentVolume.storageClassName | default ""}}
   accessModes:
-    {{- .Values.persistentVolume.accessModes | nindent 4 }}
+    {{- toYaml .Values.persistentVolume.accessModes | nindent 4 }}
   resources:
     requests:
       storage: {{ .Values.persistentVolume.capacity }}
