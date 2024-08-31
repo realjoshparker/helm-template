@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  base-template:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-08-31T05:08:18.585757298Z"
+    description: A Helm chart for Kubernetes
+    digest: 2f3d992e58497b38814cd75a41622831cef90fa8843d249cd27ffedfc67a4b12
+    name: base-template
+    type: application
+    urls:
+    - https://github.com/realjoshparker/helm-template/releases/download/base-template-0.1.0/base-template-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-08-31T05:08:18.585768128Z"
