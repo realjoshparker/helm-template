@@ -8,9 +8,9 @@ kind: Deployment
 replicaCount: 1
 restartPolicy: Always #Never
 # Used for Jobs and CronJobs, not used with other kinds
-backoffLimit: 2
+#backoffLimit: 2
 # Used with CronJobs only, specifies the frequency of the cronjobs
-schedule: "* * * * *"
+#schedule: "* * * * *"
 
 image:
   repository: busybox
