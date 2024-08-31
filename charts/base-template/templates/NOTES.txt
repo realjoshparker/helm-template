@@ -1,2 +1,0 @@
-Congrats your application is deployed, run the command below to see your resources.
-kubctl get all -A
