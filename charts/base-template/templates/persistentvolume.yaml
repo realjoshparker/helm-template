@@ -11,5 +11,7 @@ spec:
     storage: {{ .Values.persistentVolume.capacity }}
   accessModes:
     {{- toYaml .Values.persistentVolume.accessModes | nindent 4 }}
-  {{- toYaml .Values.persistentVolume.type | nindent 2 }}
+  {{- if .Values.persistentVolume.type }}
+    {{- toYaml .Values.persistentVolume.type | nindent 2 }}
+  {{- end }}
 {{- end }}
