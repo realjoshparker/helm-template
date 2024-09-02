@@ -1,4 +1,4 @@
-{{- if .Values.persistentVolume.enabled }}
+{{- if and .Values.persistentVolume.enabled .Values.persistentVolume.type }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -11,7 +11,5 @@ spec:
     storage: {{ .Values.persistentVolume.capacity }}
   accessModes:
     {{- toYaml .Values.persistentVolume.accessModes | nindent 4 }}
-  {{- if .Values.persistentVolume.type }}
     {{- toYaml .Values.persistentVolume.type | nindent 2 }}
-  {{- end }}
 {{- end }}
